@@ -1,5 +1,7 @@
 package dtos;
 
+import java.util.List;
+
 /**
  * Team interface
  */
@@ -7,6 +9,7 @@ public class TeamDTO {
 
     private String id;
     private String name;
+    private List<PlayerDTO> players;
 
     public String getId() {
         return id;
@@ -22,5 +25,13 @@ public class TeamDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<PlayerDTO> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<PlayerDTO> players) {
+        this.players = players;
     }
 }

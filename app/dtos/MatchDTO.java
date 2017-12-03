@@ -3,7 +3,7 @@ package dtos;
 import java.util.List;
 
 /**
- * Match interface
+ * Match dto to interface with Neg5 proper
  */
 public class MatchDTO {
 

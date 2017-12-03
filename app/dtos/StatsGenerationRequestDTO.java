@@ -11,6 +11,8 @@ public class StatsGenerationRequestDTO {
     private List<TeamDTO> teams;
     private String phaseId;
 
+    private List<TossupValueDTO> tossupValues;
+
     public List<MatchDTO> getMatches() {
         return matches;
     }
@@ -33,5 +35,13 @@ public class StatsGenerationRequestDTO {
 
     public void setPhaseId(String phaseId) {
         this.phaseId = phaseId;
+    }
+
+    public List<TossupValueDTO> getTossupValues() {
+        return tossupValues;
+    }
+
+    public void setTossupValues(List<TossupValueDTO> tossupValues) {
+        this.tossupValues = tossupValues;
     }
 }
