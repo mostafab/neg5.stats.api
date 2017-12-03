@@ -17,7 +17,6 @@ public class ApiResult<T> extends Result {
 
     public ApiResult() {
         super(-1);
-        this.statusCode = statusCode;
     }
 
     public Result success(T payload) {

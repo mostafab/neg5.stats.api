@@ -8,13 +8,16 @@ import mvc.ApiResult;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import services.StatsCalculationService;
 
 @Singleton
 public class StatsController extends Controller {
 
-    @Inject
-    public StatsController() {
+    private StatsCalculationService statsCalculationService;
 
+    @Inject
+    public StatsController(StatsCalculationService statsCalculationService) {
+        this.statsCalculationService = statsCalculationService;
     }
 
     /**
@@ -24,6 +27,7 @@ public class StatsController extends Controller {
      */
     public Result fullIndividual(String tournamentId) {
         StatsGenerationRequestDTO statsRequest = deserializeRequest();
+        statsCalculationService.calculateFullIndividualStats(statsRequest);
         return new ApiResult<StatsGenerationRequestDTO>().success(statsRequest);
     }
 
