@@ -7,11 +7,20 @@ import java.util.List;
  */
 public class StatsGenerationRequestDTO {
 
+    private String tournamentId;
     private List<MatchDTO> matches;
     private List<TeamDTO> teams;
     private String phaseId;
 
     private List<TossupValueDTO> tossupValues;
+
+    public String getTournamentId() {
+        return tournamentId;
+    }
+
+    public void setTournamentId(String tournamentId) {
+        this.tournamentId = tournamentId;
+    }
 
     public List<MatchDTO> getMatches() {
         return matches;

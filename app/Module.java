@@ -16,7 +16,6 @@ public class Module extends AbstractModule {
 
     @Override
     public void configure() {
-        // No-op
         bind(StatsCalculationService.class).to(StatsCalculationServiceImpl.class);
     }
 

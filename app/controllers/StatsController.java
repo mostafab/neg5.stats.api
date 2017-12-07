@@ -1,11 +1,11 @@
 package controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dtos.StatsGenerationRequestDTO;
+import dtos.stats.FullIndividualStatsCalculationResultDTO;
 import mvc.ApiResult;
-import play.libs.Json;
+import mvc.HttpRequestHelper;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.StatsCalculationService;
@@ -14,10 +14,13 @@ import services.StatsCalculationService;
 public class StatsController extends Controller {
 
     private StatsCalculationService statsCalculationService;
+    private HttpRequestHelper httpRequestHelper;
 
     @Inject
-    public StatsController(StatsCalculationService statsCalculationService) {
+    public StatsController(StatsCalculationService statsCalculationService,
+                           HttpRequestHelper httpRequestHelper) {
         this.statsCalculationService = statsCalculationService;
+        this.httpRequestHelper = httpRequestHelper;
     }
 
     /**
@@ -26,14 +29,11 @@ public class StatsController extends Controller {
      * @return A {@link Result} json payload of calculation
      */
     public Result fullIndividual(String tournamentId) {
-        StatsGenerationRequestDTO statsRequest = deserializeRequest();
-        statsCalculationService.calculateFullIndividualStats(statsRequest);
-        return new ApiResult<StatsGenerationRequestDTO>().success(statsRequest);
-    }
-
-    private StatsGenerationRequestDTO deserializeRequest() {
-        JsonNode requestJson = request().body().asJson();
-        return Json.fromJson(requestJson, StatsGenerationRequestDTO.class);
+        StatsGenerationRequestDTO statsRequest = httpRequestHelper.deserializeRequest(request(),
+                StatsGenerationRequestDTO.class);
+        statsRequest.setTournamentId(tournamentId);
+        return new ApiResult<FullIndividualStatsCalculationResultDTO>()
+                .success(statsCalculationService.calculateFullIndividualStats(statsRequest));
     }
 
 }

@@ -12,6 +12,7 @@ public class MatchDTO {
     private Integer round;
     private Integer tossupsHeard;
     private List<MatchTeamDTO> teams;
+    private List<PhaseDTO> phases;
 
     public String getId() {
         return id;
@@ -51,5 +52,13 @@ public class MatchDTO {
 
     public void setTeams(List<MatchTeamDTO> teams) {
         this.teams = teams;
+    }
+
+    public List<PhaseDTO> getPhases() {
+        return phases;
+    }
+
+    public void setPhases(List<PhaseDTO> phases) {
+        this.phases = phases;
     }
 }
