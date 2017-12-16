@@ -21,9 +21,10 @@ public class StatsCalculationServiceImpl implements StatsCalculationService {
     @Override
     public TeamStandingsStatsCalculationResultDTO calculateTeamStandings(StatsGenerationRequestDTO
                                                                                       generationRequestDTO) {
-        TeamStandingsStatsCalculationResultDTO teamStandings = new TeamStandingsStatsCalculationResultDTO();
-        populateWithGenerationRequestInfo(teamStandings, generationRequestDTO);
-        return teamStandings;
+        TeamStandingsStatsCalculationResultDTO results = teamStandingsStatsCalculator.calculate(generationRequestDTO);
+        populateWithGenerationRequestInfo(results, generationRequestDTO);
+
+        return results;
     }
 
     @Override
@@ -39,9 +40,8 @@ public class StatsCalculationServiceImpl implements StatsCalculationService {
     @Override
     public FullIndividualStatsCalculationResultDTO calculateFullIndividualStats(StatsGenerationRequestDTO
                                                                                             generationRequestDTO) {
-        FullIndividualStatsCalculationResultDTO fullIndividualStandings = new FullIndividualStatsCalculationResultDTO();
+        FullIndividualStatsCalculationResultDTO fullIndividualStandings = fullIndividualStatsCalculator.calculate(generationRequestDTO);
         populateWithGenerationRequestInfo(fullIndividualStandings, generationRequestDTO);
-
         return fullIndividualStandings;
     }
 
