@@ -1,4 +1,4 @@
-package dtos.stats;
+package interfaces.stats;
 
 import enums.StatReportType;
 

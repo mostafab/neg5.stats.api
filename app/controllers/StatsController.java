@@ -2,8 +2,8 @@ package controllers;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import dtos.StatsGenerationRequestDTO;
-import dtos.stats.FullIndividualStatsCalculationResultDTO;
+import interfaces.StatsGenerationRequestDTO;
+import interfaces.stats.FullIndividualStatsCalculationResultDTO;
 import mvc.ApiResult;
 import mvc.HttpRequestHelper;
 import play.mvc.Controller;
@@ -13,15 +13,8 @@ import services.StatsCalculationService;
 @Singleton
 public class StatsController extends Controller {
 
-    private StatsCalculationService statsCalculationService;
-    private HttpRequestHelper httpRequestHelper;
-
-    @Inject
-    public StatsController(StatsCalculationService statsCalculationService,
-                           HttpRequestHelper httpRequestHelper) {
-        this.statsCalculationService = statsCalculationService;
-        this.httpRequestHelper = httpRequestHelper;
-    }
+    @Inject private StatsCalculationService statsCalculationService;
+    @Inject private HttpRequestHelper httpRequestHelper;
 
     /**
      * Calculate full individual stats

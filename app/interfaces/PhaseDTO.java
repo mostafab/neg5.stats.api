@@ -1,4 +1,4 @@
-package dtos;
+package interfaces;
 
 /**
  * Interface for tournament phase

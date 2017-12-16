@@ -1,4 +1,4 @@
-package dtos;
+package interfaces;
 
 import enums.TossupType;
 

@@ -1,9 +1,12 @@
 package services;
 
-import dtos.StatsGenerationRequestDTO;
-import dtos.stats.FullIndividualStatsCalculationResultDTO;
-import dtos.stats.StatsCalculationResultDTO;
-import dtos.stats.TeamStandingsStatsCalculationResultDTO;
+import calculators.FullIndividualStatsCalculator;
+import calculators.TeamStandingsStatsCalculator;
+import com.google.inject.Inject;
+import interfaces.StatsGenerationRequestDTO;
+import interfaces.stats.FullIndividualStatsCalculationResultDTO;
+import interfaces.stats.StatsCalculationResultDTO;
+import interfaces.stats.TeamStandingsStatsCalculationResultDTO;
 
 import java.time.Instant;
 
@@ -12,8 +15,11 @@ import java.time.Instant;
  */
 public class StatsCalculationServiceImpl implements StatsCalculationService {
 
+    @Inject private TeamStandingsStatsCalculator teamStandingsStatsCalculator;
+    @Inject private FullIndividualStatsCalculator fullIndividualStatsCalculator;
+
     @Override
-    public TeamStandingsStatsCalculationResultDTO calculcateTeamStandings(StatsGenerationRequestDTO
+    public TeamStandingsStatsCalculationResultDTO calculateTeamStandings(StatsGenerationRequestDTO
                                                                                       generationRequestDTO) {
         TeamStandingsStatsCalculationResultDTO teamStandings = new TeamStandingsStatsCalculationResultDTO();
         populateWithGenerationRequestInfo(teamStandings, generationRequestDTO);
