@@ -18,18 +18,28 @@ public class StatsCalculationServiceImpl implements StatsCalculationService {
     @Inject private TeamStandingsStatsCalculator teamStandingsStatsCalculator;
     @Inject private FullIndividualStatsCalculator fullIndividualStatsCalculator;
 
+    /**
+     * Calculate the entire team standings and returns a Data Transfer Object with the original request and
+     * team standing Information
+     * @param Data Transfer Object requesting stats generation
+     * @return Data Transfer Object containing stats calculation
+     */
     @Override
     public TeamStandingsStatsCalculationResultDTO calculateTeamStandings(StatsGenerationRequestDTO
                                                                                       generationRequestDTO) {
         TeamStandingsStatsCalculationResultDTO results = teamStandingsStatsCalculator.calculate(generationRequestDTO);
         populateWithGenerationRequestInfo(results, generationRequestDTO);
-
+        
         return results;
     }
 
     @Override
     public void calculateIndividualStandings(StatsGenerationRequestDTO generationRequestDTO) {
-
+    	
+    	FullIndividualStatsCalculationResultDTO results = FullIndividualStatsCalculator.calculate(generationRequestDTO);
+    	populateWithGenerationRequestInfo(results, generationRequest);
+    	
+    	return results;
     }
 
     @Override
