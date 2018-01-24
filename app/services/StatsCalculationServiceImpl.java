@@ -34,10 +34,10 @@ public class StatsCalculationServiceImpl implements StatsCalculationService {
     }
 
     @Override
-    public void calculateIndividualStandings(StatsGenerationRequestDTO generationRequestDTO) {
+    public FullIndividualStatsCalculationResultDTO calculateIndividualStandings(StatsGenerationRequestDTO generationRequestDTO) {
     	
-    	FullIndividualStatsCalculationResultDTO results = FullIndividualStatsCalculator.calculate(generationRequestDTO);
-    	populateWithGenerationRequestInfo(results, generationRequest);
+    	FullIndividualStatsCalculationResultDTO results = fullIndividualStatsCalculator.calculate(generationRequestDTO);
+    	populateWithGenerationRequestInfo(results, generationRequestDTO);
     	
     	return results;
     }
