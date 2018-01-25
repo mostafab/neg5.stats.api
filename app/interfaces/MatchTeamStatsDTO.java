@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class MatchTeamStatsDTO extends MatchTeamDTO{
     private String result;
     private Integer pointsTotal;
     private Integer pointsAgainst;
-    private List<Integer> tossupValues;
+    private List<TeamTossupValuesDTO> tossupValues;
     private Integer TUH;
     private Float PPTH;
     private Float pnRatio;
@@ -36,13 +37,16 @@ public class MatchTeamStatsDTO extends MatchTeamDTO{
         super.setOvertimeTossups(matchTeamDTO.getOvertimeTossups());
         super.setPlayers(matchTeamDTO.getPlayers());
         super.setMatchId(matchTeamDTO.getMatchId());
+
+        // initialize tossupValues
+        tossupValues = new ArrayList<>();
+
         // initialize opponent info
         List<MatchTeamDTO> teams = matchDTO.getTeams();
-        for(int i = 0; i < teams.size(); i++){
-            if(teams.get(i).getTeamId() != getTeamId()){
-                MatchTeamDTO otherTeam = teams.get(i);
+        for(MatchTeamDTO curTeam: teams){
+            if(!curTeam.getTeamId().equals(getTeamId())){
                 // set points scored against
-                pointsAgainst = otherTeam.getScore();
+                pointsAgainst = curTeam.getScore();
                 // set result
                 if(pointsTotal > pointsAgainst){
                     result = "W";
@@ -50,40 +54,13 @@ public class MatchTeamStatsDTO extends MatchTeamDTO{
                     result = "L";
                 }
                 // set opponent
-                opponent = otherTeam.getTeamId();
+                opponent = curTeam.getTeamId();
             }
         }
         // calculate stats
         calculateStats();
     }
-/*
-    public int compareTo(Object other) {
-        MatchTeamStatsDTO teamOther = (MatchTeamStatsDTO) other;
-        // First compare wins.
-        if(this.wins == teamOther.wins) {
-            // Next compare losses.
-            if(this.losses == teamOther.losses) {
-                // Third compare PPB
-                if(this.PPB == teamOther.PPB) {
-                    return 0;
-                } else if(this.PPB > teamOther.PPB) {
-                    return 1;
-                } else if(this.PPB < teamOther.PPB) {
-                    return -1;
-                }
-            } else if(this.losses < teamOther.losses) {
-                return 1;
-            } else if(this.losses > teamOther.losses) {
-                return -1;
-            }
-        } else if(this.wins > teamOther.wins) {
-            return 1;
-        } else if(this.wins < teamOther.wins) {
-            return -1;
-        }
-        return 0;
-    }
-*/
+
     private void calculateStats(){
         calculatePlayerStats();
         // calculate stats if games have been played
@@ -95,132 +72,96 @@ public class MatchTeamStatsDTO extends MatchTeamDTO{
 
     private void calculatePlayerStats(){
         List<MatchPlayerDTO> players = getPlayers();
-        for(int i = 0; i < players.size(); i++){
-            List<PlayerTossupValuesDTO> tossupValues = players.get(i).getTossupValues();
+        for(MatchPlayerDTO curPlayer : players){
+            List<PlayerTossupValuesDTO> playerTossupValues = curPlayer.getTossupValues();
             // collect tossupValues info
-            for(int j = 0; j < tossupValues.size(); j++){
-                tossupValues.get(j);
+            for(int j = 0; j < playerTossupValues.size(); j++){
+                playerTossupValues.get(j);
+
             }
         }
     }
-
-    public int getWins() {
-        return wins;
+    public String getOpponent() {
+        return opponent;
     }
 
-    public void setWins(int wins) {
-        this.wins = wins;
+    public void setOpponent(String opponent) {
+        this.opponent = opponent;
     }
 
-    public int getLosses() {
-        return losses;
+    public String getResult() {
+        return result;
     }
 
-    public void setLosses(int losses) {
-        this.losses = losses;
+    public void setResult(String result) {
+        this.result = result;
     }
 
-    public int getTies() {
-        return ties;
+    public Integer getPointsTotal() {
+        return pointsTotal;
     }
 
-    public void setTies(int ties) {
-        this.ties = ties;
+    public void setPointsTotal(Integer pointsTotal) {
+        this.pointsTotal = pointsTotal;
     }
 
-    public float getWinPct() {
-        return winPct;
+    public Integer getPointsAgainst() {
+        return pointsAgainst;
     }
 
-    public void setWinPct(float winPct) {
-        this.winPct = winPct;
+    public void setPointsAgainst(Integer pointsAgainst) {
+        this.pointsAgainst = pointsAgainst;
     }
 
-    public float getPPG() {
-        return PPG;
+    public List<TeamTossupValuesDTO> getTossupValues() {
+        return tossupValues;
     }
 
-    public void setPPG(float PPG) {
-        this.PPG = PPG;
+    public void setTossupValues(List<TeamTossupValuesDTO> tossupValues) {
+        this.tossupValues = tossupValues;
     }
 
-    public float getPAPG() {
-        return PAPG;
-    }
-
-    public void setPAPG(float PAPG) {
-        this.PAPG = PAPG;
-    }
-
-    public int getPow() {
-        return pow;
-    }
-
-    public void setPow(int pow) {
-        this.pow = pow;
-    }
-
-    public int getBase() {
-        return base;
-    }
-
-    public void setBase(int base) {
-        this.base = base;
-    }
-
-    public int getNeg() {
-        return neg;
-    }
-
-    public void setNeg(int neg) {
-        this.neg = neg;
-    }
-
-    public float getMargin() {
-        return margin;
-    }
-
-    public void setMargin(float margin) {
-        this.margin = margin;
-    }
-
-    public int getTUH() {
-        return TUH;
-    }
-
-    public void setTUH(int TUH) {
+    public void setTUH(Integer TUH) {
         this.TUH = TUH;
     }
 
-    public float getPPTH() {
-        return PPTH;
-    }
-
-    public void setPPTH(float PPTH) {
+    public void setPPTH(Float PPTH) {
         this.PPTH = PPTH;
     }
 
-    public float getPnRatio() {
-        return pnRatio;
-    }
-
-    public void setPnRatio(float pnRatio) {
+    public void setPnRatio(Float pnRatio) {
         this.pnRatio = pnRatio;
     }
 
-    public float getGnRatio() {
-        return gnRatio;
-    }
-
-    public void setGnRatio(float gnRatio) {
+    public void setGnRatio(Float gnRatio) {
         this.gnRatio = gnRatio;
     }
 
-    public float getPPB() {
-        return PPB;
+    public Integer getBonusHeard() {
+        return bonusHeard;
     }
 
-    public void setPPB(float PPB) {
+    public void setBonusHeard(Integer bonusHeard) {
+        this.bonusHeard = bonusHeard;
+    }
+
+    public Integer getPointsBonus() {
+        return pointsBonus;
+    }
+
+    public void setPointsBonus(Integer pointsBonus) {
+        this.pointsBonus = pointsBonus;
+    }
+
+    public Integer getPointsBounceback() {
+        return pointsBounceback;
+    }
+
+    public void setPointsBounceback(Integer pointsBounceback) {
+        this.pointsBounceback = pointsBounceback;
+    }
+
+    public void setPPB(Float PPB) {
         this.PPB = PPB;
     }
 }
