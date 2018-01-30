@@ -1,10 +1,12 @@
 package interfaces;
 
-public class TeamTossupValuesDTO {
+import enums.TossupType;
 
+public class TeamTossupValuesDTO {
     private Integer value;
     private Integer number;
     private String teamId;
+    private TossupType type;
 
     private String matchId;
 
@@ -28,9 +30,7 @@ public class TeamTossupValuesDTO {
         return teamId;
     }
 
-    public void setTeamId(String teamId) {
-        this.teamId = teamId;
-    }
+    public void setTeamId(String teamId) { this.teamId = teamId; }
 
     public String getMatchId() {
         return matchId;
@@ -38,5 +38,13 @@ public class TeamTossupValuesDTO {
 
     public void setMatchId(String matchId) {
         this.matchId = matchId;
+    }
+
+    public TossupType getType() {
+        return type;
+    }
+
+    public void setType(TossupType type) {
+        this.type = type;
     }
 }

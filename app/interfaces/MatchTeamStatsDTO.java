@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class MatchTeamStatsDTO extends MatchTeamDTO{
     // formatter
-    public static final DecimalFormat DF = new DecimalFormat( "#.##" );
+    private static final DecimalFormat DF = new DecimalFormat( "#.##" );
 
     // Display stats
     private String opponent;
@@ -20,14 +20,14 @@ public class MatchTeamStatsDTO extends MatchTeamDTO{
     private Integer pointsTotal;
     private Integer pointsAgainst;
     private List<TeamTossupValuesDTO> tossupValues;
-    private Integer TUH;
-    private Float PPTH;
-    private Float pnRatio;
-    private Float gnRatio;
+    private Integer tuh;
+    private Double ppth;
+    private Double pnRatio;
+    private Double gnRatio;
     private Integer bonusHeard;
     private Integer pointsBonus;
     private Integer pointsBounceback;
-    private Float PPB;
+    private Double ppb;
 
     public MatchTeamStatsDTO(MatchTeamDTO matchTeamDTO, MatchDTO matchDTO){
         // super constructor
@@ -121,19 +121,19 @@ public class MatchTeamStatsDTO extends MatchTeamDTO{
         this.tossupValues = tossupValues;
     }
 
-    public void setTUH(Integer TUH) {
-        this.TUH = TUH;
+    public void setTUH(Integer tuh) {
+        this.tuh = tuh;
     }
 
-    public void setPPTH(Float PPTH) {
-        this.PPTH = PPTH;
+    public void setPPTH(Double ppth) {
+        this.ppth = ppth;
     }
 
-    public void setPnRatio(Float pnRatio) {
+    public void setPnRatio(Double pnRatio) {
         this.pnRatio = pnRatio;
     }
 
-    public void setGnRatio(Float gnRatio) {
+    public void setGnRatio(Double gnRatio) {
         this.gnRatio = gnRatio;
     }
 
@@ -161,7 +161,7 @@ public class MatchTeamStatsDTO extends MatchTeamDTO{
         this.pointsBounceback = pointsBounceback;
     }
 
-    public void setPPB(Float PPB) {
-        this.PPB = PPB;
+    public void setPPB(Double ppb) {
+        this.ppb = ppb;
     }
 }
