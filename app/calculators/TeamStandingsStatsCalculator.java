@@ -148,7 +148,7 @@ public class TeamStandingsStatsCalculator implements StatsCalculator<TeamStandin
             for(int tossupType = 0; tossupType < playerTossupVal.size(); tossupType++){
                 PlayerTossupValuesDTO curPlayerTossupVal = playerTossupVal.get(tossupType);
                 // If this is first entry, then enter player stats as the first team stat entry
-                if(teamTossupVals.size() == 0){
+                if(teamTossupVals.size() < playerTossupVal.size()){
                     TeamTossupValuesDTO newTossupValue = new TeamTossupValuesDTO();
                     newTossupValue.setNumber(curPlayerTossupVal.getNumber());
                     newTossupValue.setValue(curPlayerTossupVal.getValue());
@@ -158,8 +158,6 @@ public class TeamStandingsStatsCalculator implements StatsCalculator<TeamStandin
                     TeamTossupValuesDTO curTossupValue = teamTossupVals.get(tossupType);
                     curTossupValue.setNumber(curPlayerTossupVal.getNumber() +
                                              curTossupValue.getNumber());
-                    curTossupValue.setValue(curPlayerTossupVal.getValue() +
-                                            curTossupValue.getValue());
                 }
             }
         }

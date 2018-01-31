@@ -1,11 +1,11 @@
 package calculators;
 
-import interfaces.MatchDTO;
-import interfaces.StatsGenerationRequestDTO;
-import interfaces.TeamDTO;
+import interfaces.*;
 import interfaces.stats.FullIndividualStatsCalculationResultDTO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Calculator for full individual stats
