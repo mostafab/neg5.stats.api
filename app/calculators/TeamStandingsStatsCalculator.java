@@ -2,6 +2,8 @@ package calculators;
 
 import interfaces.*;
 import interfaces.stats.TeamStandingsStatsCalculationResultDTO;
+import interfaces.team.TeamStandingStatsDTO;
+import interfaces.team.TeamTossupValuesDTO;
 
 import java.util.*;
 

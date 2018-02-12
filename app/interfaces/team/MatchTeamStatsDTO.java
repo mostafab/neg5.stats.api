@@ -1,4 +1,9 @@
-package interfaces;
+package interfaces.team;
+
+import interfaces.MatchDTO;
+import interfaces.MatchPlayerDTO;
+import interfaces.MatchTeamDTO;
+import interfaces.PlayerTossupValuesDTO;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -10,7 +15,7 @@ import java.util.List;
  * @author jshyo
  *
  */
-public class MatchTeamStatsDTO extends MatchTeamDTO{
+public class MatchTeamStatsDTO extends MatchTeamDTO {
     // formatter
     private static final DecimalFormat DF = new DecimalFormat( "#.##" );
 
@@ -55,29 +60,6 @@ public class MatchTeamStatsDTO extends MatchTeamDTO{
                 }
                 // set opponent
                 opponent = curTeam.getTeamId();
-            }
-        }
-        // calculate stats
-        calculateStats();
-    }
-
-    private void calculateStats(){
-        calculatePlayerStats();
-        // calculate stats if games have been played
-
-
-        // format to decimal places
-
-    }
-
-    private void calculatePlayerStats(){
-        List<MatchPlayerDTO> players = getPlayers();
-        for(MatchPlayerDTO curPlayer : players){
-            List<PlayerTossupValuesDTO> playerTossupValues = curPlayer.getTossupValues();
-            // collect tossupValues info
-            for(int j = 0; j < playerTossupValues.size(); j++){
-                playerTossupValues.get(j);
-
             }
         }
     }

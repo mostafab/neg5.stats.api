@@ -2,36 +2,38 @@ package calculators;
 
 
 import interfaces.*;
+import interfaces.individual.FullIndividualPlayerDTO;
+import interfaces.individual.IndividualMatchPlayerDTO;
+import interfaces.individual.IndividualPlayerDTO;
 import interfaces.stats.FullIndividualStatsCalculationResultDTO;
 import interfaces.stats.StatsCalculationResultDTO;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class IndividualStandingsStatsCalculator implements StatsCalculator{
     @Override
     public StatsCalculationResultDTO calculate(StatsGenerationRequestDTO statsGenerationRequest) {
-        FullIndividualStatsCalculationResultDTO results = new FullIndividualStatsCalculationResultDTO();
-        List<TeamDTO> teams = statsGenerationRequest.getTeams();
-        List<MatchDTO> matches = statsGenerationRequest.getMatches();
-        return results;
+        StatsCalculationResultDTO results = new FullIndividualStatsCalculationResultDTO();
+        StatsCalculator fullIndividualStatsCalculator = new FullIndividualStatsCalculator();
 
+        StatsCalculationResultDTO individualResults = fullIndividualStatsCalculator.calculate(statsGenerationRequest);
+        List<FullIndividualPlayerDTO> individualResultsList = individualResults.getStats();
+        // take a full individual playerStatsMap first
+        Map<String, IndividualPlayerDTO> playerStatsMap = new HashMap<>();
+        for(FullIndividualPlayerDTO curFullIndividualPlayer : individualResultsList){
+            populatePlayer(playerStatsMap, curFullIndividualPlayer);
+        }
+
+
+        return results;
     }
 
 
-    private Map<String, IndividualPlayerDTO> populatePlayers(List<TeamDTO> teams, List<MatchDTO> matches){
-        Map<String, IndividualPlayerDTO> playerStatsMap = new HashMap<>();
-        for(TeamDTO curTeam : teams){
-            for(PlayerDTO curPlayer : curTeam.getPlayers()){
-                IndividualPlayerDTO curPlayerStats = new IndividualPlayerDTO(curPlayer);
-                playerStatsMap.put(curPlayerStats.getId(), curPlayerStats);
-            }
-        }
-        // add each player match data to the stats map
-        for(MatchDTO curMatch : matches){
-            populateMatch(playerStatsMap, curMatch);
-        }
-        // return populated and calculated playerStatsMap
-        return playerStatsMap;
+    private void populatePlayer(Map<String, IndividualPlayerDTO> playerStatsMap, List<FullIndividualPlayerDTO> individualResultsList) {
+
     }
 
     private void populateMatch(Map<String, IndividualPlayerDTO> playerStatsMap, MatchDTO curMatch){

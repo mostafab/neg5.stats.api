@@ -2,6 +2,7 @@ package calculators;
 
 import interfaces.*;
 import interfaces.stats.FullTeamStatsCalculationResultDTO;
+import interfaces.team.MatchTeamStatsDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
