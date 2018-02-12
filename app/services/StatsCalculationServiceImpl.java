@@ -21,7 +21,7 @@ public class StatsCalculationServiceImpl implements StatsCalculationService {
     /**
      * Calculate the entire team standings and returns a Data Transfer Object with the original request and
      * team standing Information
-     * @param Data Transfer Object requesting stats generation
+     * @param generationRequestDTO Transfer Object requesting stats generation
      * @return Data Transfer Object containing stats calculation
      */
     @Override
@@ -34,12 +34,8 @@ public class StatsCalculationServiceImpl implements StatsCalculationService {
     }
 
     @Override
-    public FullIndividualStatsCalculationResultDTO calculateIndividualStandings(StatsGenerationRequestDTO generationRequestDTO) {
-    	
-    	FullIndividualStatsCalculationResultDTO results = fullIndividualStatsCalculator.calculate(generationRequestDTO);
-    	populateWithGenerationRequestInfo(results, generationRequestDTO);
-    	
-    	return results;
+    public void calculateIndividualStandings(StatsGenerationRequestDTO generationRequestDTO) {
+
     }
 
     @Override
