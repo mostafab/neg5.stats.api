@@ -7,6 +7,13 @@ public class PlayerDTO {
 
     private String teamId;
 
+    public PlayerDTO(String id, String name, String teamId)
+    {
+      this.id = id;
+      this.name = name;
+      this.teamId = teamId;
+    }
+
     public String getId() {
         return id;
     }

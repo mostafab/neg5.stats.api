@@ -8,6 +8,12 @@ public class PhaseDTO {
     private String id;
     private String name;
 
+    public PhaseDTO(String id, String name)
+    {
+      this.id = id;
+      this.name = name;
+    }
+
     public String getId() {
         return id;
     }

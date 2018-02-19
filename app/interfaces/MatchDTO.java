@@ -14,6 +14,14 @@ public class MatchDTO {
     private List<MatchTeamDTO> teams;
     private List<PhaseDTO> phases;
 
+    public MatchDTO(String id, String tournamentId, Integer round, Integer tossupsHeard)
+    {
+      this.id = id;
+      this.tournamentId = tournamentId;
+      this.round = round;
+      this.tossupsHeard = tossupsHeard;
+    }
+
     public String getId() {
         return id;
     }

@@ -10,6 +10,12 @@ public class TossupValueDTO {
     private Integer value;
     private TossupType type;
 
+    public TossupValueDTO(Integer value, TossupType type)
+    {
+      this.value = value;
+      this.type = type;
+    }
+
     public Integer getValue() {
         return value;
     }

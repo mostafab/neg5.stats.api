@@ -14,6 +14,14 @@ public class MatchPlayerDTO {
     private String teamId;
     private String matchId;
 
+    public MatchPlayerDTO(String playerId, Integer tossupsHeard, String teamId, String matchId)
+    {
+      this.playerId = playerId;
+      this.tossupsHeard = tossupsHeard;
+      this.teamId = teamId;
+      this.matchId = matchId;
+    }
+
     public String getPlayerId() {
         return playerId;
     }
