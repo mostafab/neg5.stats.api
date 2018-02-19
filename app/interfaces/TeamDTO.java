@@ -11,6 +11,12 @@ public class TeamDTO {
     private String name;
     private List<PlayerDTO> players;
 
+    public TeamDTO(String id, String name)
+    {
+      this.id = id;
+      this.name = name;
+    }
+
     public String getId() {
         return id;
     }

@@ -15,6 +15,15 @@ public class MatchTeamDTO {
 
     private String matchId;
 
+    public MatchTeamDTO(String teamId, Integer score, Integer bouncebackPoints, Integer overtimeTossups, String matchId)
+    {
+      this.teamId = teamId;
+      this.score = score;
+      this.bouncebackPoints = bouncebackPoints;
+      this.overtimeTossups = overtimeTossups;
+      this.matchId = matchId;
+    }
+
     public String getTeamId() {
         return teamId;
     }

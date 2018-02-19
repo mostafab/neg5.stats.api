@@ -14,6 +14,12 @@ public class StatsGenerationRequestDTO {
 
     private List<TossupValueDTO> tossupValues;
 
+    public StatsGenerationRequestDTO(String tournamentId, String phaseId)
+    {
+      this.tournamentId = tournamentId;
+      this.phaseId = phaseId;
+    }
+
     public String getTournamentId() {
         return tournamentId;
     }

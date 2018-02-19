@@ -8,6 +8,14 @@ public class PlayerTossupValuesDTO {
 
     private String matchId;
 
+    public PlayerTossupValuesDTO(Integer value, Integer number, String playerId, String matchId)
+    {
+      this.value = value;
+      this.number = number;
+      this.playerId = playerId;
+      this.matchId = matchId;
+    }
+
     public Integer getValue() {
         return value;
     }
