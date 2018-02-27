@@ -1,7 +1,12 @@
 package calculators;
 
 import interfaces.*;
+import interfaces.individual.FullIndividualPlayerDTO;
+import interfaces.individual.IndividualStandingsDTO;
+import interfaces.stats.FullIndividualStatsCalculationResultDTO;
 import interfaces.stats.FullTeamStatsCalculationResultDTO;
+import interfaces.stats.StatsCalculationResultDTO;
+import interfaces.team.FullTeamStatsDTO;
 import interfaces.team.MatchTeamStatsDTO;
 
 import java.util.ArrayList;
@@ -16,18 +21,31 @@ public class FullTeamStatsCalculator implements StatsCalculator {
         // initialize
         List<TeamDTO> teams = statsGenerationRequest.getTeams();
         List<MatchDTO> matches = statsGenerationRequest.getMatches();
+        // use the IndividualStandingsCalculator
+        StatsCalculationResultDTO fullIndividualResults = new FullIndividualStatsCalculationResultDTO();
+        StatsCalculator individualStatsCalculator = new IndividualStandingsStatsCalculator();
+        StatsCalculationResultDTO individualResults = individualStatsCalculator.calculate(statsGenerationRequest);
+        List<IndividualStandingsDTO> individualResultsList = individualResults.getStats();
 
         // stats go in order of Win, Loss, Tie, Win pct, PPG, PAPG, Margin, TUH, PPTH, P/N, G/N, PPB
-        Map<String, List<MatchTeamStatsDTO>> teamStatsMap = new HashMap<>();
+        Map<String, FullTeamStatsDTO> teamStatsMap = new HashMap<>();
 
         // go through teams
         for(TeamDTO curTeam: teams){
-            List<MatchTeamStatsDTO> newMatchList = new ArrayList<>();
-            teamStatsMap.put(curTeam.getId(), newMatchList);
+            FullTeamStatsDTO newFullTeamStats = new FullTeamStatsDTO(curTeam);
+            String curTeamId = curTeam.getId();
+            teamStatsMap.put(curTeamId, newFullTeamStats);
         }
 
-        // list of team standings to be displayed
-        List<MatchTeamStatsDTO> fullStandingStats = new ArrayList<>();
+        // go through players to pair teams with player stats
+        for(IndividualStandingsDTO curPlayerStats : individualResultsList){
+            String curTeamId = curPlayerStats.getTeamId();
+            FullTeamStatsDTO curFullTeamStats = teamStatsMap.get(curTeamId);
+            // add new player
+            List<IndividualStandingsDTO> totalPlayers = curFullTeamStats.getPlayerStats();
+            totalPlayers.add(curPlayerStats);
+            curFullTeamStats.setPlayerStats(totalPlayers);
+        }
 
         // fill stats with each team
         for(MatchDTO curMatch: matches){
@@ -35,37 +53,41 @@ public class FullTeamStatsCalculator implements StatsCalculator {
             for(MatchTeamDTO curMatchTeam : curMatch.getTeams()){
                 String curTeamId = curMatchTeam.getTeamId();
                 MatchTeamStatsDTO curMatchTeamStats = new MatchTeamStatsDTO(curMatchTeam, curMatch);
-                // calculate the statistics
-                // curMatchTeamStats.calculate();
 
-                List<MatchTeamStatsDTO> matchTeamStatsDTOList = teamStatsMap.get(curTeamId);
-                matchTeamStatsDTOList.add(curMatchTeamStats);
-                teamStatsMap.put(curTeamId, matchTeamStatsDTOList);
+                // calculate the statistics
+                calculateStats(curMatchTeamStats);
+                // put the newly calculated statistics into the matches list
+                FullTeamStatsDTO curFullTeamStats = teamStatsMap.get(curTeamId);
+                curFullTeamStats.getMatches().add(curMatchTeamStats);
+                teamStatsMap.put(curTeamId, curFullTeamStats);
             }
         }
 
         // convert map back to sorted list
         // calculate stats from matches
-        // maybe make team stats dto
-        results.setStats(fullStandingStats);
+        results.setStats(new ArrayList<>(teamStatsMap.values()));
         return results;
     }
 
-    private Map<String, MatchTeamStatsDTO> populateMap(List<MatchDTO> matches){
-        // go through each match and add the stats to the map
-        for(MatchDTO curMatch: matches){
-            int tossupsHeard = curMatch.getTossupsHeard();
-            List<MatchTeamDTO> curTeams = curMatch.getTeams();
-            for(MatchTeamDTO curMatchTeam : curTeams){
-                String curId = curMatchTeam.getTeamId();
-                int scoreTotal = curMatchTeam.getScore();
-                List<MatchPlayerDTO> curPlayers = curMatchTeam.getPlayers();
-                for(MatchPlayerDTO curMatchPlayer : curPlayers){
-
+    private void calculateStats(MatchTeamStatsDTO curMatchTeamStats){
+        if(curMatchTeamStats.getTuh() > 0){
+            curMatchTeamStats.setPpth((double) curMatchTeamStats.getPointsTotal() / curMatchTeamStats.getTuh());
+            if(curMatchTeamStats.getBonusHeard() > 0){
+                curMatchTeamStats.setPpb((double) (curMatchTeamStats.getPointsBonus() + curMatchTeamStats.getPointsBounceback()) /
+                curMatchTeamStats.getBonusHeard());
+                if(curMatchTeamStats.getNumNeg() > 0){
+                    curMatchTeamStats.setGnRatio((double) (curMatchTeamStats.getNumBase() + curMatchTeamStats.getNumPow())
+                    / curMatchTeamStats.getNumNeg());
+                    curMatchTeamStats.setPnRatio((double) curMatchTeamStats.getNumPow() / curMatchTeamStats.getNumNeg());
+                } else{
+                    curMatchTeamStats.setGnRatio(Double.POSITIVE_INFINITY);
+                    curMatchTeamStats.setPnRatio(Double.POSITIVE_INFINITY);
                 }
+            } else{
+                curMatchTeamStats.setPpb(0d);
             }
-
+        } else {
+            curMatchTeamStats.setPpth(0d);
         }
-        return new HashMap<>();
     }
 }

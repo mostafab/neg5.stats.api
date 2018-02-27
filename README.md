@@ -2,17 +2,11 @@
 
 # Quiz Bowl stats calculator
 
-This is an application built off of play framework.  Please see the documentation at https://www.playframework.com/documentation/latest/Home for more details.
+This is an application built off of play framework that takes in http requests and returns calculates quiz bowl stats, 
 
-## Running
+## Contributing
 
-Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project from http://www.playframework.com/download then you'll find a prepackaged version of sbt in the project directory:
-
-```
-sbt run
-```
-
-And then go to http://localhost:9000 to see the running web application.
+For details on setup and contributing, please see our [contributing guidelines here](CONTRIBUTING.md)
 
 ## Controllers
 
@@ -51,15 +45,3 @@ There are several demonstration files available in this template.
 - ExampleFilter.java
 
   A simple filter that adds a header to every response.
-  
-## Ways to contribute
-
-- Stats calculators
-  
-  A more efficient method of calculating stats for team standings, full team, and individual
-  standings can be implemented. 
-
-- Testing
-  
-  Implementing JUnit testing would also be extremely beneficial, by creating a tournament, teams, matches, and players
-  to simulate stats calculations.

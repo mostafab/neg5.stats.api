@@ -24,6 +24,9 @@ public class MatchTeamStatsDTO extends MatchTeamDTO {
     private String result;
     private Integer pointsTotal;
     private Integer pointsAgainst;
+    private Integer numPow;
+    private Integer numBase;
+    private Integer numNeg;
     private List<TeamTossupValuesDTO> tossupValues;
     private Integer tuh;
     private Double ppth;
@@ -38,11 +41,13 @@ public class MatchTeamStatsDTO extends MatchTeamDTO {
         // super constructor
         super.setTeamId(matchTeamDTO.getTeamId());
         super.setScore(matchTeamDTO.getScore());
+        pointsTotal = getScore();
         super.setBouncebackPoints(matchTeamDTO.getBouncebackPoints());
+        pointsBounceback = getBouncebackPoints();
         super.setOvertimeTossups(matchTeamDTO.getOvertimeTossups());
         super.setPlayers(matchTeamDTO.getPlayers());
         super.setMatchId(matchTeamDTO.getMatchId());
-
+        tuh = matchDTO.getTossupsHeard();
         // initialize tossupValues
         tossupValues = new ArrayList<>();
 
@@ -95,20 +100,36 @@ public class MatchTeamStatsDTO extends MatchTeamDTO {
         this.pointsAgainst = pointsAgainst;
     }
 
+    public Integer getNumPow() {
+        return numPow;
+    }
+
+    public void setNumPow(Integer numPow) {
+        this.numPow = numPow;
+    }
+
+    public Integer getNumBase() {
+        return numBase;
+    }
+
+    public void setNumBase(Integer numBase) {
+        this.numBase = numBase;
+    }
+
+    public Integer getNumNeg() {
+        return numNeg;
+    }
+
+    public void setNumNeg(Integer numNeg) {
+        this.numNeg = numNeg;
+    }
+
     public List<TeamTossupValuesDTO> getTossupValues() {
         return tossupValues;
     }
 
     public void setTossupValues(List<TeamTossupValuesDTO> tossupValues) {
         this.tossupValues = tossupValues;
-    }
-
-    public void setTUH(Integer tuh) {
-        this.tuh = tuh;
-    }
-
-    public void setPPTH(Double ppth) {
-        this.ppth = ppth;
     }
 
     public void setPnRatio(Double pnRatio) {
@@ -143,7 +164,37 @@ public class MatchTeamStatsDTO extends MatchTeamDTO {
         this.pointsBounceback = pointsBounceback;
     }
 
-    public void setPPB(Double ppb) {
+
+    public Integer getTuh() {
+        return tuh;
+    }
+
+    public void setTuh(Integer tuh) {
+        this.tuh = tuh;
+    }
+
+    public Double getPpth() {
+        return ppth;
+    }
+
+    public void setPpth(Double ppth) {
+        this.ppth = ppth;
+    }
+
+    public Double getPnRatio() {
+        return pnRatio;
+    }
+
+    public Double getGnRatio() {
+        return gnRatio;
+    }
+
+    public Double getPpb() {
+        return ppb;
+    }
+
+    public void setPpb(Double ppb) {
         this.ppb = ppb;
     }
+
 }
