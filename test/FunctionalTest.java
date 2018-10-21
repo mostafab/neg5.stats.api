@@ -1,6 +1,9 @@
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import play.test.WithApplication;
 import play.twirl.api.Content;
+import views.html.*;
+
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
